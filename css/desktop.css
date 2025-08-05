@@ -1,0 +1,491 @@
+/* desktop.css - Mac OS Frosted Glass style */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'), local('Helvetica Neue'), Arial, sans-serif;
+  font-display: swap;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0;
+  padding: 0;
+  font-family: 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  /* Hardware acceleration for smooth performance */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Add subtle animated background elements */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Dock Styles - Frosted Glass */
+#dock {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 20px;
+  padding: 12px 16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 200;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Hardware acceleration */
+  transform: translateX(-50%) translateZ(0);
+  will-change: transform;
+}
+
+.dock-item {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.dock-item:hover {
+  transform: scale(1.15) translateY(-8px) translateZ(0);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.dock-item.active {
+  background: rgba(0, 122, 255, 0.3);
+  border-color: rgba(0, 122, 255, 0.5);
+  transform: scale(1.1) translateZ(0);
+  box-shadow: 
+    0 8px 24px rgba(0, 122, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.dock-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.dock-item .app-name {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dock-item:hover .app-name {
+  opacity: 1;
+}
+
+/* Window Styles - Frosted Glass */
+.window {
+  position: absolute;
+  min-width: 320px;
+  min-height: 200px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  resize: both;
+  overflow: hidden;
+  /* Hardware acceleration for smooth dragging */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimized dragging state - simplified effects for performance */
+.window.dragging {
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: none;
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.window:active, .window.active {
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.12),
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 122, 255, 0.4);
+  transform: translateY(-2px) translateZ(0);
+}
+
+.window.maximized {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+}
+
+.title-bar {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px 16px 0 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 16px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  cursor: move;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  user-select: none;
+  position: relative;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.window.maximized .title-bar {
+  border-radius: 0;
+}
+
+.title {
+  flex: 1;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: -0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.minimize-btn, .maximize-btn, .close-btn {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  position: relative;
+  font-size: 8px;
+  font-weight: bold;
+  color: transparent;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.minimize-btn {
+  background: #ffbd2e;
+  box-shadow: 0 2px 6px rgba(255, 189, 46, 0.3);
+}
+
+.maximize-btn {
+  background: #28ca42;
+  box-shadow: 0 2px 6px rgba(40, 202, 66, 0.3);
+}
+
+.close-btn {
+  background: #ff5f57;
+  box-shadow: 0 2px 6px rgba(255, 95, 87, 0.3);
+}
+
+.minimize-btn:hover, .maximize-btn:hover, .close-btn:hover {
+  transform: scale(1.1) translateZ(0);
+  filter: brightness(1.1);
+}
+
+.minimize-btn:active, .maximize-btn:active, .close-btn:active {
+  transform: scale(0.95) translateZ(0);
+}
+
+.close-btn:hover {
+  background: #ff4444;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.4);
+}
+
+.minimize-btn:hover {
+  background: #ffd700;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.maximize-btn:hover {
+  background: #32cd32;
+  box-shadow: 0 2px 8px rgba(50, 205, 50, 0.4);
+}
+
+.window-content {
+  padding: 20px;
+  font-family: inherit;
+  color: #333;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 0 16px 16px;
+  height: calc(100% - 42px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.window.maximized .window-content {
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* iPod Classic Styles */
+.menu-item {
+  padding: 6px 8px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: bold;
+}
+
+.search-result {
+  padding: 6px 8px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  border-bottom: 1px solid #333;
+}
+
+.search-result:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-result:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* iPod Click Wheel Hover Effects */
+#click-wheel:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+#center-button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(145deg, #f0f0f0 0%, #d0d0d0 100%);
+}
+
+/* Scrollbar styling for window content */
+.window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for window appearance */
+.window {
+  animation: windowAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes windowAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) translateZ(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .window {
+    min-width: 280px;
+    font-size: 13px;
+  }
+  
+  .window-content {
+    padding: 16px;
+  }
+  
+  .window-controls {
+    gap: 6px;
+  }
+  
+  .minimize-btn, .maximize-btn, .close-btn {
+    width: 10px;
+    height: 10px;
+  }
+  
+  #dock {
+    bottom: 10px;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+  
+  .dock-item {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .dock-item img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+  
+  body::before {
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%);
+  }
+  
+  .window {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+  
+  .title-bar {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .title {
+    color: #fff;
+  }
+  
+  .window-content {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+  
+  #dock {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .dock-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+} 

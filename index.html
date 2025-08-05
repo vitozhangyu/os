@@ -3,41 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Designer Portfolio</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Your Name - Portfolio (Retro Mac OS X)</title>
+  <link rel="stylesheet" href="css/desktop.css">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="nav-logo">Your Name</div>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button id="lang-toggle">EN/中文</button>
-      <button id="dark-toggle">🌙</button>
-    </div>
-  </nav>
-
-  <!-- Home Section -->
-  <main class="home-section">
-    <h1 id="home-title">Hi, I'm Your Name</h1>
-    <p id="home-tagline">A Passionate Designer Crafting Digital Experiences</p>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <span>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></span>
-    <span class="footer-socials">
-      <!-- Add your social links here -->
-      <a href="#" aria-label="LinkedIn">LinkedIn</a>
-      <a href="#" aria-label="Instagram">Instagram</a>
-    </span>
-  </footer>
-
-  <script src="js/main.js"></script>
+  <!-- Retro Desktop Only -->
+  <div id="desktop" style="display: block;"></div>
+  
+  <!-- Dock -->
+  <div id="dock"></div>
+  
+  <script src="js/desktop.js"></script>
 </body>
 </html> 
