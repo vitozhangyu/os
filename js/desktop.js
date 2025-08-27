@@ -278,15 +278,20 @@ class DesktopApp {
         dockIcon: 'https://img.icons8.com/ios-filled/50/ff6b6b/clock.png',
         content: `
           <div class="clock-container">
+            <img src="images/twemco.png" alt="Twemco Clock" class="clock-background">
             <video id="clock-video" autoplay muted loop playsinline>
               <source src="videos/clock.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
+            <div class="clock-description">
+              <h3 class="clock-title">Real-Time Amsterdam Clock</h3>
+              <p class="clock-text">This interactive clock displays the current time in Amsterdam, Netherlands. The clock automatically synchronizes with the local Amsterdam timezone and updates in real-time. The vintage Twemco flip clock design provides a classic aesthetic while maintaining modern functionality.</p>
+            </div>
           </div>
         `,
-        width: 400,
-        height: 300,
-        position: { left: 'calc(100vw - 450px)', top: 'calc(100vh - 400px)' }
+        width: 300,
+        height: 250,
+        position: { left: 'calc(100vw - 350px)', top: 'calc(100vh - 300px)' }
       }
     ];
 
@@ -1136,6 +1141,37 @@ class DesktopApp {
       
       // When window becomes visible/focused, ensure video is playing
       window.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Keep video playing even when tab is not active
+      document.addEventListener('visibilitychange', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Periodically check if video is still playing and restart if needed
+      setInterval(() => {
+        if (video.paused && !video.ended) {
+          console.log('Clock video was paused, restarting...');
+          video.play().catch(error => {
+            console.log('Could not restart video:', error);
+          });
+        }
+      }, 1000);
+
+      // Handle page focus events
+      window.addEventListener('focus', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Handle when page becomes visible again
+      window.addEventListener('pageshow', () => {
         if (video.paused) {
           video.play();
         }

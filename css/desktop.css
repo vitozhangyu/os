@@ -314,7 +314,7 @@ body::before {
 }
 
 .window-content {
-  padding: 20px;
+  padding: 5px;
   font-family: inherit;
   color: #333;
   background: rgba(255, 255, 255, 0.15);
@@ -434,7 +434,7 @@ body::before {
   }
   
   .window-content {
-    padding: 16px;
+    padding: 5px;
   }
   
   .window-controls {
@@ -751,19 +751,113 @@ body::before {
 .clock-container {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #000;
   position: relative;
 }
 
-#clock-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* TWEAK HERE: Background image (twemco.png) positioning and size */
+.clock-background {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 225px;
+  object-fit: contain;
+  z-index: 1;
   border-radius: 12px;
+  /* HORIZONTALLY CENTERED & FIXED SIZE PROPERTIES FOR TWEMCO.PNG:
+     - left: 50%; transform: translateX(-50%); = Horizontal centering only
+     - top: Fixed position in pixels (e.g., top: 10px, top: 20px)
+     - width/height: Change size in pixels (e.g., width: 350px, height: 250px)
+     - Image stays horizontally centered regardless of window width changes
+     - Scale and vertical position remain fixed
+     - object-fit: cover | contain | fill | scale-down | none
+  */
+}
+
+/* TWEAK HERE: Video (clock.mp4) positioning and size RELATIVE TO TWEMCO.PNG */
+#clock-video {
+  position: absolute;
+  top: calc(0px + 32px);
+  left: calc(50% - 150px + 10px);
+  width: 230px;
+  height: 160px;
+  object-fit: contain;
+  z-index: 2;
   display: block;
+  clip-path: inset(40px 10px 38px 33px);
+  overflow: hidden;
+  /* POSITIONING RELATIVE TO TWEMCO.PNG (300px × 225px, centered horizontally):
+     - Twemco position: left: 50% (center), top: 0px
+     - Twemco size: width: 300px, height: 225px
+     
+     VIDEO POSITIONING FORMULA:
+     - top: calc(0px + YYpx)        // 0px = twemco top, +YY = offset down from twemco
+     - left: calc(50% - 150px + XXpx) // 50% = twemco center, -150px = half twemco width, +XX = offset right
+     
+     MANUAL ADJUSTMENT EXAMPLES:
+     - Move video 20px down from twemco: top: calc(0px + 20px)
+     - Move video 10px right from twemco left edge: left: calc(50% - 150px + 10px)
+     - Center video horizontally on twemco: left: calc(50% - 90px) // 90px = half video width
+     - Position at twemco right edge: left: calc(50% + 150px - 180px) // twemco right - video width
+     
+     CURRENT SETTINGS:
+     - top: calc(0px + 30px)         // 30px below twemco top
+     - left: calc(50% - 150px + 50px) // 50px right from twemco left edge
+     - width/height: Change video size (180px × 150px currently)
+     
+     CROPPING & CORNER RADIUS:
+     - clip-path: inset(top right bottom left) round radius;
+     - Current: inset(20px 30px 20px 30px) round 15px
+     - border-radius: 15px (fallback for rounded corners)
+     
+     CROP VALUES (should be smaller than video dimensions):
+     - Video size: 180px × 150px
+     - Top crop (20px): crops 20px from top
+     - Right crop (30px): crops 30px from right  
+     - Bottom crop (20px): crops 20px from bottom
+     - Left crop (30px): crops 30px from left
+     - Result: visible area = 120px × 110px (180-60 × 150-40)
+     
+     CORNER RADIUS:
+     - round 15px: applies 15px rounded corners via clip-path
+     - border-radius: 15px: fallback rounded corners
+     
+     EXAMPLES:
+     - More cropping: inset(30px 40px 30px 40px) round 20px
+     - Less cropping: inset(10px 15px 10px 15px) round 10px
+     - No rounded corners: inset(20px 30px 20px 30px)
+     - Only crop top/bottom: inset(25px 0px 25px 0px) round 15px
+  */
+}
+
+/* Clock App Description Text */
+.clock-description {
+  position: relative;
+  top: 240px;
+  margin: 0 0 20px 0;
+  z-index: 3;
+  /* TWEAK THESE PROPERTIES FOR DESCRIPTION TEXT:
+     - top: Change vertical spacing from image (e.g., top: 250px, top: 220px)
+     - margin: Adjust bottom spacing (e.g., margin: 0 0 30px 0)
+     - You can edit the title and text content in the JavaScript file (desktop.js lines 287-288)
+  */
+}
+
+.clock-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 15px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.clock-text {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 } 
