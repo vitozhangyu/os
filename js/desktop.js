@@ -48,25 +48,24 @@ class DesktopApp {
         dockIcon: 'https://img.icons8.com/ios-filled/50/4a90e2/contacts.png',
         content: `
           <div style="padding: 20px;">
-            <h2 style="margin-bottom: 20px; color: #333; font-size: 18px;">Contact Information</h2>
+            <h2 style="margin-bottom: 20px; color: #333; font-size: 18px;">Contact</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">📧 Email</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                <a href="mailto:your.email@example.com" style="color: #4a90e2; text-decoration: none;">your.email@example.com</a>
+                <a href="mailto:y.zhang12@tue.nl" style="color: #4a90e2; text-decoration: none;">y.zhang12@tue.nl</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">🌐 Social Media</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                <a href="#" style="color: #4a90e2; text-decoration: none;">LinkedIn</a> | 
-                <a href="#" style="color: #4a90e2; text-decoration: none;">Instagram</a> | 
-                <a href="#" style="color: #4a90e2; text-decoration: none;">GitHub</a>
+                <a href="https://www.linkedin.com/in/yu-zhang-479612161/" style="color: #4a90e2; text-decoration: none;">LinkedIn</a> | 
+                <a href="https://github.com/vitozhangyu" style="color: #4a90e2; text-decoration: none;">GitHub</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">📍 Location</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                Eindhoven, Netherlands
+                Rotterdam, Netherlands
               </p>
             </div>
           </div>
@@ -84,18 +83,54 @@ class DesktopApp {
           <div style="padding: 20px;">
             <h2 style="margin-bottom: 15px; color: #333; font-size: 18px;">Curriculum Vitae</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">💼 Experience</h3>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">PhD Candidate</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Eindhoven University of Technology • Full-time</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Dec 2023 - Present</div>
+                  <div style="font-size: 12px; font-style: italic;">Eindhoven, Netherlands</div>
+                </div>
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Technical Support Manager</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Raise3D • Full-time</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Jun 2021 - Jun 2023</div>
+                  <div style="font-size: 12px; font-style: italic;">Rotterdam, Netherlands</div>
+                </div>
+              </div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">🎓 Education</h3>
-              <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #666;">
-                <li>Bachelor of Design, Design Academy Eindhoven</li>
-                <li>Master of Interaction Design, TU Eindhoven</li>
-                <li>Certification in Frontend Development</li>
-              </ul>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Master of Science</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Delft University of Technology • 2018 - 2020</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">GPA: 7.9/10.0</div>
+                  <div style="font-size: 12px; font-style: italic;">Full-time in English</div>
+                </div>
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Bachelor of Science</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Delft University of Technology  • 2015 - 2018</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">GPA: 7.25/10.0</div>
+                  <div style="font-size: 12px; font-style: italic;">Full-time in Dutch</div>
+                </div>
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">[Certification Name]</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">[Institution] • [Year]</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Score/Grade: [If applicable]</div>
+                  <div style="font-size: 12px; font-style: italic;">[Add relevant skills or projects completed]</div>
+                </div>
+              </div>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">💼 Skills</h3>
-              <p style="margin: 0; font-size: 13px; color: #666;">
-                UI/UX Design, HTML5, CSS3, JavaScript, React, Figma, Adobe Creative Suite
-              </p>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <p style="margin: 0; font-size: 13px; color: #666;">
+                    UI/UX Design, HTML5, CSS3, JavaScript, React, Figma, Adobe Creative Suite
+                  </p>
+                </div>
+              </div>
             </div>
             <button onclick="desktopApp.downloadCV()" style="
               background: #4a90e2; color: white; border: none; padding: 8px 16px; 
@@ -116,21 +151,33 @@ class DesktopApp {
           <div style="padding: 20px;">
             <h2 style="margin-bottom: 15px; color: #333; font-size: 18px;">Publications</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">Design Journal, 2024</h3>
-              <p style="margin: 0 0 15px 0; font-size: 13px; color: #666;">
-                "The Art of Dual Interfaces" - Exploring the intersection of modern and retro design
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">Currently available technologies for continuous sodium monitoring in plasma or interstitial fluid: A scoping review</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                Yu Zhang, Hanneke M. van Santen, Ruben E.A. Musson, Panos Markopoulos, Yuan Lu
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                Sensing and Bio-Sensing Research, Vol.49, Issue 100850, August 2025 • 
+                <a href="https://doi.org/10.1016/j.sbsr.2025.100850" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: 10.1016/j.sbsr.2025.100850</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">Web Design Weekly, 2023</h3>
-              <p style="margin: 0 0 15px 0; font-size: 13px; color: #666;">
-                "Retro Computing in Modern Web Design" - Nostalgia meets functionality
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">[Publication Title 2]</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                [Author 1], [Author 2], [Author 3]
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                [Journal Name], Vol. [Volume], Issue [Issue], [Publication Date] • 
+                <a href="[DOI URL]" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: [DOI Number]</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">UX Magazine, 2023</h3>
-              <p style="margin: 0; font-size: 13px; color: #666;">
-                "User-Centered Design in Healthcare" - Improving patient experiences
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">[Publication Title 3]</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                [Author 1], [Author 2], [Author 3]
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                [Journal Name], Vol. [Volume], Issue [Issue], [Publication Date] • 
+                <a href="[DOI URL]" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: [DOI Number]</a>
               </p>
             </div>
           </div>
