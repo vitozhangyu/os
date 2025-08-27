@@ -48,25 +48,24 @@ class DesktopApp {
         dockIcon: 'https://img.icons8.com/ios-filled/50/4a90e2/contacts.png',
         content: `
           <div style="padding: 20px;">
-            <h2 style="margin-bottom: 20px; color: #333; font-size: 18px;">Contact Information</h2>
+            <h2 style="margin-bottom: 20px; color: #333; font-size: 18px;">Contact</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">📧 Email</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                <a href="mailto:your.email@example.com" style="color: #4a90e2; text-decoration: none;">your.email@example.com</a>
+                <a href="mailto:y.zhang12@tue.nl" style="color: #4a90e2; text-decoration: none;">y.zhang12@tue.nl</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">🌐 Social Media</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                <a href="#" style="color: #4a90e2; text-decoration: none;">LinkedIn</a> | 
-                <a href="#" style="color: #4a90e2; text-decoration: none;">Instagram</a> | 
-                <a href="#" style="color: #4a90e2; text-decoration: none;">GitHub</a>
+                <a href="https://www.linkedin.com/in/yu-zhang-479612161/" style="color: #4a90e2; text-decoration: none;">LinkedIn</a> | 
+                <a href="https://github.com/vitozhangyu" style="color: #4a90e2; text-decoration: none;">GitHub</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">📍 Location</h3>
               <p style="margin: 0; font-size: 13px; color: #666;">
-                Eindhoven, Netherlands
+                Rotterdam, Netherlands
               </p>
             </div>
           </div>
@@ -84,18 +83,54 @@ class DesktopApp {
           <div style="padding: 20px;">
             <h2 style="margin-bottom: 15px; color: #333; font-size: 18px;">Curriculum Vitae</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">💼 Experience</h3>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">PhD Candidate</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Eindhoven University of Technology • Full-time</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Dec 2023 - Present</div>
+                  <div style="font-size: 12px; font-style: italic;">Eindhoven, Netherlands</div>
+                </div>
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Technical Support Manager</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Raise3D • Full-time</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Jun 2021 - Jun 2023</div>
+                  <div style="font-size: 12px; font-style: italic;">Rotterdam, Netherlands</div>
+                </div>
+              </div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">🎓 Education</h3>
-              <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #666;">
-                <li>Bachelor of Design, Design Academy Eindhoven</li>
-                <li>Master of Interaction Design, TU Eindhoven</li>
-                <li>Certification in Frontend Development</li>
-              </ul>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Master of Science</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Delft University of Technology • 2018 - 2020</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">GPA: 7.9/10.0</div>
+                  <div style="font-size: 12px; font-style: italic;">Full-time in English</div>
+                </div>
+                <div style="margin-bottom: 12px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">Bachelor of Science</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Delft University of Technology  • 2015 - 2018</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">GPA: 7.25/10.0</div>
+                  <div style="font-size: 12px; font-style: italic;">Full-time in Dutch</div>
+                </div>
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <div style="font-weight: bold; margin-bottom: 4px;">[Certification Name]</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">[Institution] • [Year]</div>
+                  <div style="font-size: 12px; color: #888; margin-bottom: 2px;">Score/Grade: [If applicable]</div>
+                  <div style="font-size: 12px; font-style: italic;">[Add relevant skills or projects completed]</div>
+                </div>
+              </div>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
               <h3 style="margin: 0 0 10px 0; color: #555; font-size: 14px;">💼 Skills</h3>
-              <p style="margin: 0; font-size: 13px; color: #666;">
-                UI/UX Design, HTML5, CSS3, JavaScript, React, Figma, Adobe Creative Suite
-              </p>
+              <div style="margin: 0; font-size: 13px; color: #666;">
+                <div style="padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <p style="margin: 0; font-size: 13px; color: #666;">
+                    UI/UX Design, HTML5, CSS3, JavaScript, React, Figma, Adobe Creative Suite
+                  </p>
+                </div>
+              </div>
             </div>
             <button onclick="desktopApp.downloadCV()" style="
               background: #4a90e2; color: white; border: none; padding: 8px 16px; 
@@ -116,21 +151,33 @@ class DesktopApp {
           <div style="padding: 20px;">
             <h2 style="margin-bottom: 15px; color: #333; font-size: 18px;">Publications</h2>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">Design Journal, 2024</h3>
-              <p style="margin: 0 0 15px 0; font-size: 13px; color: #666;">
-                "The Art of Dual Interfaces" - Exploring the intersection of modern and retro design
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">Currently available technologies for continuous sodium monitoring in plasma or interstitial fluid: A scoping review</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                Yu Zhang, Hanneke M. van Santen, Ruben E.A. Musson, Panos Markopoulos, Yuan Lu
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                Sensing and Bio-Sensing Research, Vol.49, Issue 100850, August 2025 • 
+                <a href="https://doi.org/10.1016/j.sbsr.2025.100850" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: 10.1016/j.sbsr.2025.100850</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">Web Design Weekly, 2023</h3>
-              <p style="margin: 0 0 15px 0; font-size: 13px; color: #666;">
-                "Retro Computing in Modern Web Design" - Nostalgia meets functionality
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">[Publication Title 2]</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                [Author 1], [Author 2], [Author 3]
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                [Journal Name], Vol. [Volume], Issue [Issue], [Publication Date] • 
+                <a href="[DOI URL]" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: [DOI Number]</a>
               </p>
             </div>
             <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-              <h3 style="margin: 0 0 8px 0; color: #555; font-size: 14px;">UX Magazine, 2023</h3>
-              <p style="margin: 0; font-size: 13px; color: #666;">
-                "User-Centered Design in Healthcare" - Improving patient experiences
+              <h3 style="margin: 0 0 6px 0; color: #333; font-size: 14px; font-weight: bold;">[Publication Title 3]</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px; color: #666; font-style: italic;">
+                [Author 1], [Author 2], [Author 3]
+              </p>
+              <p style="margin: 0; font-size: 12px; color: #888;">
+                [Journal Name], Vol. [Volume], Issue [Issue], [Publication Date] • 
+                <a href="[DOI URL]" style="color: #4a90e2; text-decoration: none;" target="_blank">DOI: [DOI Number]</a>
               </p>
             </div>
           </div>
@@ -221,8 +268,30 @@ class DesktopApp {
           </div>
         `,
         width: 320,
-        height: 400,
-        position: { left: '800px', top: '300px' }
+        height: 500,
+        position: { left: '1565px', top: '400px' }
+      },
+      {
+        id: 'clock-app',
+        title: 'Clock',
+        icon: '🕐',
+        dockIcon: 'https://img.icons8.com/ios-filled/50/ff6b6b/clock.png',
+        content: `
+          <div class="clock-container">
+            <img src="images/twemco.png" alt="Twemco Clock" class="clock-background">
+            <video id="clock-video" autoplay muted loop playsinline>
+              <source src="videos/clock.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="clock-description">
+              <h3 class="clock-title">Real-Time Amsterdam Clock</h3>
+              <p class="clock-text">This interactive clock displays the current time in Amsterdam, Netherlands. The clock automatically synchronizes with the local Amsterdam timezone and updates in real-time. The vintage Twemco flip clock design provides a classic aesthetic while maintaining modern functionality.</p>
+            </div>
+          </div>
+        `,
+        width: 300,
+        height: 250,
+        position: { left: 'calc(100vw - 350px)', top: 'calc(100vh - 300px)' }
       }
     ];
 
@@ -268,6 +337,11 @@ class DesktopApp {
     // Special handling for iPod app
     if (appConfig.id === 'ipod-app') {
       this.setupIPodControls(window);
+    }
+    
+    // Special handling for Clock app
+    if (appConfig.id === 'clock-app') {
+      this.setupClockApp(window);
     }
     
     return window;
@@ -981,6 +1055,130 @@ class DesktopApp {
     // Initialize
     loadYouTubeAPI();
     showNowPlaying();
+  }
+
+  setupClockApp(window) {
+    const video = window.querySelector('#clock-video');
+    if (!video) return;
+
+    // Function to get Amsterdam time and sync video
+    const syncVideoToAmsterdamTime = async () => {
+      try {
+        // Fetch current Amsterdam time
+        const response = await fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam');
+        const timeData = await response.json();
+        const amsterdamTime = new Date(timeData.datetime);
+        
+        // Extract hours and minutes
+        const hours = amsterdamTime.getHours();
+        const minutes = amsterdamTime.getMinutes();
+        
+        // Convert to 12-hour format for video timeline
+        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+        
+        // Use current time (no subtraction)
+        const videoHour = hour12;
+        const videoMinutes = minutes;
+        
+        // Calculate video start position in seconds
+        // Assuming the video is 12 hours long (43200 seconds)
+        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (videoMinutes * 60);
+        
+        console.log(`Amsterdam time: ${hours}:${minutes.toString().padStart(2, '0')}`);
+        console.log(`Video starting at: ${videoHour}:${videoMinutes.toString().padStart(2, '0')}`);
+        console.log(`Video position: ${videoStartSeconds} seconds`);
+        
+        return videoStartSeconds;
+        
+      } catch (error) {
+        console.log('Could not fetch Amsterdam time, using local time:', error);
+        
+        // Fallback to local time
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+        const videoHour = hour12;
+        
+        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (minutes * 60);
+        return videoStartSeconds;
+      }
+    };
+
+    // Initialize video with time sync
+    const initVideo = async () => {
+      video.load();
+      
+      // Wait for video metadata to load
+      video.addEventListener('loadedmetadata', async () => {
+        const startPosition = await syncVideoToAmsterdamTime();
+        
+        // Set video start position
+        video.currentTime = Math.min(startPosition, video.duration);
+        
+        // Try to play the video
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            console.log('Clock video started successfully');
+          }).catch(error => {
+            console.log('Clock video autoplay prevented:', error);
+          });
+        }
+      });
+      
+      // Ensure video loops properly
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+      });
+      
+      // Handle errors
+      video.addEventListener('error', (e) => {
+        console.log('Clock video error:', e);
+      });
+      
+      // When window becomes visible/focused, ensure video is playing
+      window.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Keep video playing even when tab is not active
+      document.addEventListener('visibilitychange', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Periodically check if video is still playing and restart if needed
+      setInterval(() => {
+        if (video.paused && !video.ended) {
+          console.log('Clock video was paused, restarting...');
+          video.play().catch(error => {
+            console.log('Could not restart video:', error);
+          });
+        }
+      }, 1000);
+
+      // Handle page focus events
+      window.addEventListener('focus', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+
+      // Handle when page becomes visible again
+      window.addEventListener('pageshow', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+    };
+
+    initVideo();
   }
 }
 
