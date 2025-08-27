@@ -747,11 +747,222 @@ body::before {
   transform: translateX(-50%) scale(1.05);
 }
 
+/* iPod App Hover Effects - Hide window background by default */
+#ipod-app {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  resize: none !important;
+}
+
+#ipod-app .window-content {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#ipod-app .title-bar {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+/* Hide window controls, title, and scrollbar by default */
+#ipod-app .window-controls,
+#ipod-app .title {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+#ipod-app .window-content::-webkit-scrollbar {
+  width: 0px !important;
+  background: transparent !important;
+}
+
+#ipod-app .window-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+#ipod-app .window-content::-webkit-scrollbar-thumb {
+  background: transparent !important;
+}
+
+/* Show window background only when hovering over iPod */
+#ipod-app .ipod-classic:hover,
+#ipod-app:hover {
+  transition: all 0.3s ease;
+}
+
+#ipod-app .ipod-classic:hover ~ *,
+#ipod-app:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  resize: both !important;
+}
+
+#ipod-app:hover .window-content {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+#ipod-app:hover .title-bar {
+  background: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Show window controls, title, and scrollbar on hover */
+#ipod-app:hover .window-controls,
+#ipod-app:hover .title {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#ipod-app:hover .window-content::-webkit-scrollbar {
+  width: 8px !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+#ipod-app:hover .window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 4px !important;
+}
+
+#ipod-app:hover .window-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+#ipod-app:hover .window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
 /* Clock App Styles */
 .clock-container {
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+/* Clock App Hover Effects - Hide window background by default */
+#clock-app {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  resize: none !important;
+}
+
+#clock-app .window-content {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#clock-app .title-bar {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+/* Hide window controls, title, and scrollbar by default */
+#clock-app .window-controls,
+#clock-app .title {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+#clock-app .window-content::-webkit-scrollbar {
+  width: 0px !important;
+  background: transparent !important;
+}
+
+#clock-app .window-content::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+#clock-app .window-content::-webkit-scrollbar-thumb {
+  background: transparent !important;
+}
+
+/* Show window background only when hovering over twemco.png */
+#clock-app:hover .clock-background ~ * {
+  transition: all 0.3s ease;
+}
+
+#clock-app .clock-background:hover ~ .clock-description,
+#clock-app .clock-background:hover ~ #clock-video {
+  display: block;
+}
+
+#clock-app:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  resize: both !important;
+}
+
+#clock-app:hover .window-content {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+#clock-app:hover .title-bar {
+  background: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Show window controls, title, and scrollbar on hover */
+#clock-app:hover .window-controls,
+#clock-app:hover .title {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#clock-app:hover .window-content::-webkit-scrollbar {
+  width: 8px !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+#clock-app:hover .window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 4px !important;
+}
+
+#clock-app:hover .window-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+#clock-app:hover .window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3) !important;
 }
 
 /* TWEAK HERE: Background image (twemco.png) positioning and size */

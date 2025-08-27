@@ -268,8 +268,8 @@ class DesktopApp {
           </div>
         `,
         width: 320,
-        height: 400,
-        position: { left: '800px', top: '300px' }
+        height: 500,
+        position: { left: '1565px', top: '400px' }
       },
       {
         id: 'clock-app',
