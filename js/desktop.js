@@ -270,6 +270,23 @@ class DesktopApp {
         width: 320,
         height: 400,
         position: { left: '800px', top: '300px' }
+      },
+      {
+        id: 'clock-app',
+        title: 'Clock',
+        icon: '🕐',
+        dockIcon: 'https://img.icons8.com/ios-filled/50/ff6b6b/clock.png',
+        content: `
+          <div class="clock-container">
+            <video id="clock-video" autoplay muted loop playsinline>
+              <source src="videos/clock.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        `,
+        width: 400,
+        height: 300,
+        position: { left: 'calc(100vw - 450px)', top: 'calc(100vh - 400px)' }
       }
     ];
 
@@ -315,6 +332,11 @@ class DesktopApp {
     // Special handling for iPod app
     if (appConfig.id === 'ipod-app') {
       this.setupIPodControls(window);
+    }
+    
+    // Special handling for Clock app
+    if (appConfig.id === 'clock-app') {
+      this.setupClockApp(window);
     }
     
     return window;
@@ -1028,6 +1050,99 @@ class DesktopApp {
     // Initialize
     loadYouTubeAPI();
     showNowPlaying();
+  }
+
+  setupClockApp(window) {
+    const video = window.querySelector('#clock-video');
+    if (!video) return;
+
+    // Function to get Amsterdam time and sync video
+    const syncVideoToAmsterdamTime = async () => {
+      try {
+        // Fetch current Amsterdam time
+        const response = await fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam');
+        const timeData = await response.json();
+        const amsterdamTime = new Date(timeData.datetime);
+        
+        // Extract hours and minutes
+        const hours = amsterdamTime.getHours();
+        const minutes = amsterdamTime.getMinutes();
+        
+        // Convert to 12-hour format for video timeline
+        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+        
+        // Use current time (no subtraction)
+        const videoHour = hour12;
+        const videoMinutes = minutes;
+        
+        // Calculate video start position in seconds
+        // Assuming the video is 12 hours long (43200 seconds)
+        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (videoMinutes * 60);
+        
+        console.log(`Amsterdam time: ${hours}:${minutes.toString().padStart(2, '0')}`);
+        console.log(`Video starting at: ${videoHour}:${videoMinutes.toString().padStart(2, '0')}`);
+        console.log(`Video position: ${videoStartSeconds} seconds`);
+        
+        return videoStartSeconds;
+        
+      } catch (error) {
+        console.log('Could not fetch Amsterdam time, using local time:', error);
+        
+        // Fallback to local time
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+        const videoHour = hour12;
+        
+        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (minutes * 60);
+        return videoStartSeconds;
+      }
+    };
+
+    // Initialize video with time sync
+    const initVideo = async () => {
+      video.load();
+      
+      // Wait for video metadata to load
+      video.addEventListener('loadedmetadata', async () => {
+        const startPosition = await syncVideoToAmsterdamTime();
+        
+        // Set video start position
+        video.currentTime = Math.min(startPosition, video.duration);
+        
+        // Try to play the video
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            console.log('Clock video started successfully');
+          }).catch(error => {
+            console.log('Clock video autoplay prevented:', error);
+          });
+        }
+      });
+      
+      // Ensure video loops properly
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+      });
+      
+      // Handle errors
+      video.addEventListener('error', (e) => {
+        console.log('Clock video error:', e);
+      });
+      
+      // When window becomes visible/focused, ensure video is playing
+      window.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        }
+      });
+    };
+
+    initVideo();
   }
 }
 
