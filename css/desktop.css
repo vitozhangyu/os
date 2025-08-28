@@ -797,6 +797,17 @@ body::before {
   transition: all 0.3s ease;
 }
 
+/* Disable transitions during dragging for better performance */
+#ipod-app.dragging,
+#ipod-app.dragging *,
+#ipod-app.dragging .ipod-classic,
+#ipod-app.dragging .window-content,
+#ipod-app.dragging .title-bar {
+  transition: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 #ipod-app .ipod-classic:hover ~ *,
 #ipod-app:hover {
   background: rgba(255, 255, 255, 0.25) !important;
@@ -907,6 +918,17 @@ body::before {
   transition: all 0.3s ease;
 }
 
+/* Disable transitions during dragging for better performance */
+#clock-app.dragging,
+#clock-app.dragging *,
+#clock-app.dragging .clock-container,
+#clock-app.dragging .window-content,
+#clock-app.dragging .title-bar {
+  transition: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 #clock-app .clock-background:hover ~ .clock-description,
 #clock-app .clock-background:hover ~ #clock-video {
   display: block;
@@ -989,14 +1011,14 @@ body::before {
 /* TWEAK HERE: Video (clock.mp4) positioning and size RELATIVE TO TWEMCO.PNG */
 #clock-video {
   position: absolute;
-  top: calc(0px + 32px);
-  left: calc(50% - 150px + 10px);
-  width: 230px;
-  height: 160px;
+  top: calc(0px + 35px);
+  left: calc(50% - 150px + 35px);
+  width: 200px;
+  height: 150px;
   object-fit: contain;
   z-index: 2;
   display: block;
-  clip-path: inset(40px 10px 38px 33px);
+  clip-path: inset(35px 5px 33px 5px);
   overflow: hidden;
   /* POSITIONING RELATIVE TO TWEMCO.PNG (300px × 225px, centered horizontally):
      - Twemco position: left: 50% (center), top: 0px
