@@ -1362,15 +1362,25 @@ class DesktopApp {
         
         console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
-        // Test CORS first
+        // Test CORS first with simple endpoint
         if (isGitHubPages) {
           try {
-            const testApiUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/test';
+            const testApiUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/hello';
             console.log('Testing CORS with:', testApiUrl);
             const testResponse = await fetch(testApiUrl);
             console.log('CORS test response:', await testResponse.json());
           } catch (e) {
             console.log('CORS test failed:', e);
+            
+            // Try the test endpoint as backup
+            try {
+              const testApiUrl2 = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/test';
+              console.log('Testing CORS with backup:', testApiUrl2);
+              const testResponse2 = await fetch(testApiUrl2);
+              console.log('Backup CORS test response:', await testResponse2.json());
+            } catch (e2) {
+              console.log('Backup CORS test also failed:', e2);
+            }
           }
         }
 
