@@ -1340,13 +1340,23 @@ class DesktopApp {
         formData.append('image', imageFile);
 
         // Determine API URL based on current domain
-        const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
-        const isGitHubPages = hostname.includes('github.io');
+        let hostname = '';
+        let isGitHubPages = false;
+        
+        try {
+          hostname = window.location.hostname || '';
+          isGitHubPages = hostname.includes('github.io');
+        } catch (e) {
+          console.log('Error getting hostname:', e);
+          hostname = '';
+          isGitHubPages = false;
+        }
+        
         const apiUrl = isGitHubPages 
           ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor'
           : '/api/analyze-resistor';
         
-        console.log('Hostname:', hostname, 'API URL:', apiUrl);
+        console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'API URL:', apiUrl);
 
         const response = await fetch(apiUrl, {
           method: 'POST',
