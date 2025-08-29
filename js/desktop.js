@@ -1342,21 +1342,25 @@ class DesktopApp {
         // Determine API URL based on current domain
         let hostname = '';
         let isGitHubPages = false;
+        let isVercel = false;
         
         try {
           hostname = window.location.hostname || '';
           isGitHubPages = hostname.includes('github.io');
+          isVercel = hostname.includes('vercel.app');
         } catch (e) {
           console.log('Error getting hostname:', e);
-          hostname = '';
-          isGitHubPages = false;
+          hostname = document.location?.hostname || '';
+          isGitHubPages = hostname.includes('github.io');
+          isVercel = hostname.includes('vercel.app');
         }
         
-        const apiUrl = isGitHubPages 
+        // Use Vercel API for GitHub Pages, local API for Vercel
+        const apiUrl = (isGitHubPages || (!isVercel && !hostname.includes('localhost')))
           ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor'
           : '/api/analyze-resistor';
         
-        console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'API URL:', apiUrl);
+        console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -1375,20 +1379,34 @@ class DesktopApp {
         let analysisText = result.analysis || 'No analysis available';
         
         // Try to parse JSON response if Gemini returns JSON
+        console.log('Raw analysis text:', analysisText);
+        
         try {
-          const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+          // Try to extract JSON from the response
+          const jsonMatch = analysisText.match(/\{[\s\S]*?\}/);
           if (jsonMatch) {
+            console.log('Found JSON:', jsonMatch[0]);
             const parsedAnalysis = JSON.parse(jsonMatch[0]);
-            if (parsedAnalysis.resistance && parsedAnalysis.tolerance) {
-              analysisText = `Resistance: ${parsedAnalysis.resistance}
-Tolerance: ${parsedAnalysis.tolerance}
-${parsedAnalysis.explanation ? '\n' + parsedAnalysis.explanation : ''}`;
+            console.log('Parsed JSON:', parsedAnalysis);
+            
+            if (parsedAnalysis.resistance || parsedAnalysis.value) {
+              const resistance = parsedAnalysis.resistance || parsedAnalysis.value || 'Unknown';
+              const tolerance = parsedAnalysis.tolerance || 'Unknown';
+              const colors = parsedAnalysis.colors || parsedAnalysis.color_bands || '';
+              
+              analysisText = `Resistance: ${resistance}
+Tolerance: ${tolerance}${colors ? '\nColor Bands: ' + colors : ''}`;
             } else if (parsedAnalysis.error) {
               analysisText = parsedAnalysis.error;
             }
+          } else {
+            // If no JSON found, clean up the response
+            analysisText = analysisText.replace(/```json|```/g, '').trim();
           }
         } catch (e) {
-          // If JSON parsing fails, use the original text
+          console.log('JSON parsing error:', e);
+          // Clean up common JSON artifacts from the text
+          analysisText = analysisText.replace(/```json|```|\{|\}/g, '').trim();
         }
         
         resultText.textContent = analysisText;
