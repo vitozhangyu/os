@@ -1340,10 +1340,13 @@ class DesktopApp {
         formData.append('image', imageFile);
 
         // Determine API URL based on current domain
-        const isGitHubPages = window.location.hostname.includes('github.io');
+        const hostname = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
+        const isGitHubPages = hostname.includes('github.io');
         const apiUrl = isGitHubPages 
           ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor'
           : '/api/analyze-resistor';
+        
+        console.log('Hostname:', hostname, 'API URL:', apiUrl);
 
         const response = await fetch(apiUrl, {
           method: 'POST',
