@@ -1339,7 +1339,13 @@ class DesktopApp {
         const formData = new FormData();
         formData.append('image', imageFile);
 
-        const response = await fetch('/api/analyze-resistor', {
+        // Determine API URL based on current domain
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const apiUrl = isGitHubPages 
+          ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor'
+          : '/api/analyze-resistor';
+
+        const response = await fetch(apiUrl, {
           method: 'POST',
           body: formData
         });
@@ -1352,7 +1358,27 @@ class DesktopApp {
         
         // Display result
         loadingIndicator.style.display = 'none';
-        resultText.textContent = result.analysis || 'No analysis available';
+        
+        let analysisText = result.analysis || 'No analysis available';
+        
+        // Try to parse JSON response if Gemini returns JSON
+        try {
+          const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const parsedAnalysis = JSON.parse(jsonMatch[0]);
+            if (parsedAnalysis.resistance && parsedAnalysis.tolerance) {
+              analysisText = `Resistance: ${parsedAnalysis.resistance}
+Tolerance: ${parsedAnalysis.tolerance}
+${parsedAnalysis.explanation ? '\n' + parsedAnalysis.explanation : ''}`;
+            } else if (parsedAnalysis.error) {
+              analysisText = parsedAnalysis.error;
+            }
+          }
+        } catch (e) {
+          // If JSON parsing fails, use the original text
+        }
+        
+        resultText.textContent = analysisText;
         resultContainer.style.display = 'block';
         
       } catch (error) {
