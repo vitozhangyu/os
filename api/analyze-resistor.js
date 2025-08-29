@@ -1,11 +1,13 @@
 const multiparty = require('multiparty');
 
 module.exports = async function handler(req, res) {
-  // Set CORS headers
+  // Set comprehensive CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'false');
 
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -14,6 +16,11 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Log the request for debugging
+  console.log('Request method:', req.method);
+  console.log('Request headers:', req.headers);
+  console.log('API Key present:', !!process.env.GOOGLE_API_KEY);
 
   try {
     const form = new multiparty.Form();
@@ -42,10 +49,21 @@ module.exports = async function handler(req, res) {
     // Clean up uploaded file
     fs.unlinkSync(file.path);
 
+    // Ensure CORS headers are set on success responses too
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    
     res.json({ analysis });
 
   } catch (error) {
     console.error('Error analyzing resistor:', error);
+    
+    // Ensure CORS headers are set on error responses too
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    
     res.status(500).json({ 
       error: 'Failed to analyze resistor',
       details: error.message 
