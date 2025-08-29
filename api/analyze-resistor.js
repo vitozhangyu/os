@@ -1,5 +1,4 @@
-const formidable = require('formidable');
-const fs = require('fs');
+const multiparty = require('multiparty');
 
 module.exports = async function handler(req, res) {
   // Set CORS headers
@@ -17,28 +16,31 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const form = formidable({
-      maxFileSize: 10 * 1024 * 1024, // 10MB limit
-      filter: function ({mimetype}) {
-        return mimetype && mimetype.startsWith('image/');
-      }
+    const form = new multiparty.Form();
+    
+    const parseForm = () => new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        else resolve({ fields, files });
+      });
     });
 
-    const [fields, files] = await form.parse(req);
+    const { files } = await parseForm();
     
     if (!files.image || !files.image[0]) {
       return res.status(400).json({ error: 'No image file provided' });
     }
 
     const file = files.image[0];
-    const imageBuffer = fs.readFileSync(file.filepath);
+    const fs = require('fs');
+    const imageBuffer = fs.readFileSync(file.path);
     const base64Image = imageBuffer.toString('base64');
 
     // Google Gemini API integration
-    const analysis = await analyzeResistorWithGemini(base64Image, file.mimetype);
+    const analysis = await analyzeResistorWithGemini(base64Image, file.headers['content-type'] || 'image/jpeg');
 
     // Clean up uploaded file
-    fs.unlinkSync(file.filepath);
+    fs.unlinkSync(file.path);
 
     res.json({ analysis });
 
