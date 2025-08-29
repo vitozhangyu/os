@@ -1355,22 +1355,18 @@ class DesktopApp {
           isVercel = hostname.includes('vercel.app');
         }
         
-        // Use Vercel API for GitHub Pages, local API for Vercel
-        // Try the main Vercel deployment URL first
-        const vercelApiUrl = hostname.includes('localhost') 
-          ? 'https://os-vitozhangyu.vercel.app/api/analyze-resistor'  // Try main deployment
-          : 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor';  // Branch deployment
-        
-        const apiUrl = (isGitHubPages || (!isVercel && !hostname.includes('localhost')))
-          ? vercelApiUrl
-          : '/api/analyze-resistor';
+        // Use main Vercel deployment for GitHub Pages (more reliable than branch deployment)
+        const apiUrl = isGitHubPages 
+          ? 'https://os-vitozhangyu.vercel.app/api/analyze-resistor'  // Main deployment
+          : '/api/analyze-resistor';  // Local API for Vercel deployment
         
         console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
         // Test CORS first
         if (isGitHubPages) {
           try {
-            const testApiUrl = vercelApiUrl.replace('/analyze-resistor', '/test');
+            const testApiUrl = 'https://os-vitozhangyu.vercel.app/api/test';
+            console.log('Testing CORS with:', testApiUrl);
             const testResponse = await fetch(testApiUrl);
             console.log('CORS test response:', await testResponse.json());
           } catch (e) {
