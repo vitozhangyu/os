@@ -292,6 +292,53 @@ class DesktopApp {
         width: 300,
         height: 250,
         position: { left: 'calc(100vw - 350px)', top: 'calc(100vh - 300px)' }
+      },
+      {
+        id: 'decoder-app',
+        title: 'Ω Decoder',
+        icon: 'Ω',
+        dockIcon: 'https://img.icons8.com/ios-filled/50/ff6b6b/resistor.png',
+        content: `
+          <div class="decoder-container">
+            <div class="decoder-header">
+              <h3 class="decoder-title">Resistor Value Decoder</h3>
+              <p class="decoder-subtitle">Upload a photo or take a picture of resistors to decode their values</p>
+            </div>
+            
+            <div id="preview-container" class="preview-container" style="display: none;">
+              <img id="photo-preview" class="photo-preview" style="display: none;" />
+              <video id="camera-preview" class="camera-preview" style="display: none;" autoplay muted playsinline></video>
+            </div>
+            
+            <div class="decoder-buttons">
+              <button id="photo-upload-btn" class="decoder-btn photo-btn">
+                <div class="btn-icon">📤</div>
+                <span>Upload Photo</span>
+              </button>
+              <button id="camera-btn" class="decoder-btn camera-btn">
+                <div class="btn-icon">📷</div>
+                <span>Take Photo</span>
+              </button>
+            </div>
+            
+            <input type="file" id="photo-input" accept="image/*" style="display: none;">
+            <canvas id="camera-canvas" style="display: none;"></canvas>
+            
+            <div id="loading-indicator" class="loading" style="display: none;">
+              <div class="spinner"></div>
+              <p>Analyzing resistor values...</p>
+            </div>
+            
+            <div id="result-container" class="result-container" style="display: none;">
+              <h4>Analysis Result:</h4>
+              <div id="result-text" class="result-text"></div>
+              <button id="new-analysis-btn" class="new-analysis-btn">New Analysis</button>
+            </div>
+          </div>
+        `,
+        width: 450,
+        height: 400,
+        position: { left: '600px', top: '200px' }
       }
     ];
 
@@ -342,6 +389,11 @@ class DesktopApp {
     // Special handling for Clock app
     if (appConfig.id === 'clock-app') {
       this.setupClockApp(window);
+    }
+    
+    // Special handling for Decoder app
+    if (appConfig.id === 'decoder-app') {
+      this.setupDecoderApp(window);
     }
     
     return window;
@@ -1179,6 +1231,151 @@ class DesktopApp {
     };
 
     initVideo();
+  }
+
+  setupDecoderApp(window) {
+    const photoUploadBtn = window.querySelector('#photo-upload-btn');
+    const cameraBtn = window.querySelector('#camera-btn');
+    const photoInput = window.querySelector('#photo-input');
+    const previewContainer = window.querySelector('#preview-container');
+    const photoPreview = window.querySelector('#photo-preview');
+    const cameraPreview = window.querySelector('#camera-preview');
+    const cameraCanvas = window.querySelector('#camera-canvas');
+    const loadingIndicator = window.querySelector('#loading-indicator');
+    const resultContainer = window.querySelector('#result-container');
+    const resultText = window.querySelector('#result-text');
+    const newAnalysisBtn = window.querySelector('#new-analysis-btn');
+    
+    let currentStream = null;
+
+    // Photo upload functionality
+    photoUploadBtn.addEventListener('click', () => {
+      photoInput.click();
+    });
+
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Show photo preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          photoPreview.src = e.target.result;
+          photoPreview.style.display = 'block';
+          cameraPreview.style.display = 'none';
+          previewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        
+        processImage(file);
+      }
+    });
+
+    // Camera functionality
+    cameraBtn.addEventListener('click', async () => {
+      try {
+        currentStream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'environment' // Use back camera on mobile
+          } 
+        });
+        
+        cameraPreview.srcObject = currentStream;
+        photoPreview.style.display = 'none';
+        cameraPreview.style.display = 'block';
+        previewContainer.style.display = 'block';
+        
+        // Change camera button to capture
+        cameraBtn.innerHTML = '<div class="btn-icon">📸</div><span>Capture Photo</span>';
+        cameraBtn.onclick = capturePhoto;
+      } catch (error) {
+        console.error('Camera access denied:', error);
+        alert('Camera access denied. Please check your browser permissions.');
+      }
+    });
+
+    function capturePhoto() {
+      const canvas = cameraCanvas;
+      const video = cameraPreview;
+      
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0);
+      
+      // Show captured photo as preview
+      const imageData = canvas.toDataURL('image/jpeg', 0.8);
+      photoPreview.src = imageData;
+      photoPreview.style.display = 'block';
+      cameraPreview.style.display = 'none';
+      
+      // Convert to blob for processing
+      canvas.toBlob((blob) => {
+        processImage(blob);
+        stopCamera();
+      }, 'image/jpeg', 0.8);
+    }
+
+    function stopCamera() {
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+        currentStream = null;
+      }
+      // Reset camera button
+      cameraBtn.innerHTML = '<div class="btn-icon">📷</div><span>Take Photo</span>';
+      cameraBtn.onclick = null;
+    }
+
+    async function processImage(imageFile) {
+      // Hide buttons and show loading
+      window.querySelector('.decoder-buttons').style.display = 'none';
+      cameraPreview.style.display = 'none';
+      resultContainer.style.display = 'none';
+      loadingIndicator.style.display = 'flex';
+
+      try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+
+        const response = await fetch('/api/analyze-resistor', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        // Display result
+        loadingIndicator.style.display = 'none';
+        resultText.textContent = result.analysis || 'No analysis available';
+        resultContainer.style.display = 'block';
+        
+      } catch (error) {
+        console.error('Error processing image:', error);
+        loadingIndicator.style.display = 'none';
+        resultText.textContent = `Error: ${error.message}\n\nPlease make sure the backend server is running and try again.`;
+        resultContainer.style.display = 'block';
+      }
+    }
+
+    // New analysis button
+    newAnalysisBtn.addEventListener('click', () => {
+      resultContainer.style.display = 'none';
+      window.querySelector('.decoder-buttons').style.display = 'flex';
+      previewContainer.style.display = 'none';
+      photoPreview.style.display = 'none';
+      cameraPreview.style.display = 'none';
+      photoInput.value = '';
+      stopCamera();
+    });
+
+    // Cleanup when window is closed
+    window.addEventListener('beforeunload', stopCamera);
   }
 }
 
