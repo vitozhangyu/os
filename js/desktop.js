@@ -1355,32 +1355,30 @@ class DesktopApp {
           isVercel = hostname.includes('vercel.app');
         }
         
-        // Use branch deployment for GitHub Pages (has the API functions)
+        // Use public endpoint for GitHub Pages (better CORS handling)
         const apiUrl = isGitHubPages 
-          ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor'  // Branch deployment
+          ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/public-analyze'  // Public CORS endpoint
           : '/api/analyze-resistor';  // Local API for Vercel deployment
         
         console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
-        // Test CORS first with simple endpoint
+        // Test CORS with dedicated endpoint
         if (isGitHubPages) {
           try {
-            const testApiUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/hello';
-            console.log('Testing CORS with:', testApiUrl);
-            const testResponse = await fetch(testApiUrl);
-            console.log('CORS test response:', await testResponse.json());
-          } catch (e) {
-            console.log('CORS test failed:', e);
+            const corsTestUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/cors-test';
+            console.log('Testing dedicated CORS endpoint:', corsTestUrl);
+            const corsResponse = await fetch(corsTestUrl);
+            const corsResult = await corsResponse.json();
+            console.log('Dedicated CORS test response:', corsResult);
             
-            // Try the test endpoint as backup
-            try {
-              const testApiUrl2 = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/test';
-              console.log('Testing CORS with backup:', testApiUrl2);
-              const testResponse2 = await fetch(testApiUrl2);
-              console.log('Backup CORS test response:', await testResponse2.json());
-            } catch (e2) {
-              console.log('Backup CORS test also failed:', e2);
+            if (corsResult.apiKeyPresent) {
+              console.log('✅ API key is present on deployment');
+            } else {
+              console.log('❌ API key is missing on deployment');
             }
+          } catch (e) {
+            console.log('Dedicated CORS test failed:', e);
+            console.log('This indicates fundamental CORS/deployment issues');
           }
         }
 
