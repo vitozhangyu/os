@@ -1,13 +1,7 @@
 {
   "functions": {
-    "api/analyze-resistor.js": {
+    "api/*.js": {
       "runtime": "@vercel/node"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
-  ]
+  }
 }
