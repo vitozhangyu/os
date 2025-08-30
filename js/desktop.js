@@ -1113,49 +1113,27 @@ class DesktopApp {
     const video = window.querySelector('#clock-video');
     if (!video) return;
 
-    // Function to get Amsterdam time and sync video
-    const syncVideoToAmsterdamTime = async () => {
-      try {
-        // Fetch current Amsterdam time
-        const response = await fetch('https://worldtimeapi.org/api/timezone/Europe/Amsterdam');
-        const timeData = await response.json();
-        const amsterdamTime = new Date(timeData.datetime);
-        
-        // Extract hours and minutes
-        const hours = amsterdamTime.getHours();
-        const minutes = amsterdamTime.getMinutes();
-        
-        // Convert to 12-hour format for video timeline
-        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
-        
-        // Use current time (no subtraction)
-        const videoHour = hour12;
-        const videoMinutes = minutes;
-        
-        // Calculate video start position in seconds
-        // Assuming the video is 12 hours long (43200 seconds)
-        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (videoMinutes * 60);
-        
-        console.log(`Amsterdam time: ${hours}:${minutes.toString().padStart(2, '0')}`);
-        console.log(`Video starting at: ${videoHour}:${videoMinutes.toString().padStart(2, '0')}`);
-        console.log(`Video position: ${videoStartSeconds} seconds`);
-        
-        return videoStartSeconds;
-        
-      } catch (error) {
-        console.log('Could not fetch Amsterdam time, using local time:', error);
-        
-        // Fallback to local time
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        
-        const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
-        const videoHour = hour12;
-        
-        const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (minutes * 60);
-        return videoStartSeconds;
-      }
+    // Function to get local time and sync video
+    const syncVideoToLocalTime = () => {
+      // Use local time directly
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      
+      // Convert to 12-hour format for video timeline
+      const hour12 = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
+      const videoHour = hour12;
+      const videoMinutes = minutes;
+      
+      // Calculate video start position in seconds
+      // Assuming the video is 12 hours long (43200 seconds)
+      const videoStartSeconds = ((videoHour - 1) * 60 * 60) + (videoMinutes * 60);
+      
+      console.log(`Local time: ${hours}:${minutes.toString().padStart(2, '0')}`);
+      console.log(`Video starting at: ${videoHour}:${videoMinutes.toString().padStart(2, '0')}`);
+      console.log(`Video position: ${videoStartSeconds} seconds`);
+      
+      return videoStartSeconds;
     };
 
     // Initialize video with time sync
@@ -1163,8 +1141,8 @@ class DesktopApp {
       video.load();
       
       // Wait for video metadata to load
-      video.addEventListener('loadedmetadata', async () => {
-        const startPosition = await syncVideoToAmsterdamTime();
+      video.addEventListener('loadedmetadata', () => {
+        const startPosition = syncVideoToLocalTime();
         
         // Set video start position
         video.currentTime = Math.min(startPosition, video.duration);
@@ -1345,15 +1323,14 @@ class DesktopApp {
         let isVercel = false;
         
         try {
-          hostname = window.location.hostname || '';
-          isGitHubPages = hostname.includes('github.io');
-          isVercel = hostname.includes('vercel.app');
+          hostname = window.location.hostname || document.location?.hostname || '';
         } catch (e) {
           console.log('Error getting hostname:', e);
-          hostname = document.location?.hostname || '';
-          isGitHubPages = hostname.includes('github.io');
-          isVercel = hostname.includes('vercel.app');
+          hostname = '';
         }
+        
+        isGitHubPages = hostname.includes('github.io');
+        isVercel = hostname.includes('vercel.app');
         
         // Use public endpoint for GitHub Pages (better CORS handling)
         const apiUrl = isGitHubPages 
