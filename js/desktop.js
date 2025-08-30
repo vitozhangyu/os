@@ -1364,9 +1364,17 @@ class DesktopApp {
         
         console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
-        // Test CORS with dedicated endpoint
+        // Test CORS with multiple endpoints
         if (isGitHubPages) {
           try {
+            // First try the simple CORS test
+            const simpleTestUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/simple-cors-test';
+            console.log('Testing simple CORS endpoint:', simpleTestUrl);
+            const simpleResponse = await fetch(simpleTestUrl);
+            const simpleResult = await simpleResponse.json();
+            console.log('Simple CORS test response:', simpleResult);
+            
+            // Then try the main CORS test
             const corsTestUrl = 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/cors-test';
             console.log('Testing dedicated CORS endpoint:', corsTestUrl);
             const corsResponse = await fetch(corsTestUrl);
@@ -1379,8 +1387,8 @@ class DesktopApp {
               console.log('❌ API key is missing on deployment');
             }
           } catch (e) {
-            console.log('Dedicated CORS test failed:', e);
-            console.log('This indicates fundamental CORS/deployment issues');
+            console.log('CORS test failed:', e);
+            console.log('This indicates CORS/deployment issues - trying anyway...');
           }
         }
 

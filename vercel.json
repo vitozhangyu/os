@@ -14,8 +14,27 @@
         {
           "key": "Access-Control-Allow-Headers",
           "value": "Content-Type, Authorization, X-Requested-With"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "false"
+        },
+        {
+          "key": "Access-Control-Max-Age",
+          "value": "86400"
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/cors-test.js": {
+      "maxDuration": 30
+    },
+    "api/public-analyze.js": {
+      "maxDuration": 60
+    },
+    "api/analyze-resistor.js": {
+      "maxDuration": 60
+    }
+  }
 }
