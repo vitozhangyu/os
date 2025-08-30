@@ -1323,21 +1323,26 @@ class DesktopApp {
         let isVercel = false;
         
         try {
-          hostname = window.location.hostname || '';
-          if (!hostname && document.location) {
-            hostname = document.location.hostname || '';
-          }
-          if (!hostname) {
+          // Try multiple ways to get hostname
+          if (window && window.location && window.location.hostname) {
+            hostname = window.location.hostname;
+          } else if (document && document.location && document.location.hostname) {
+            hostname = document.location.hostname;
+          } else if (location && location.hostname) {
+            hostname = location.hostname;
+          } else {
             // Fallback: extract hostname from URL
-            const url = window.location.href || document.URL || '';
+            const url = (window && window.location && window.location.href) || 
+                       (document && document.URL) || 
+                       location.href || '';
             const match = url.match(/https?:\/\/([^\/]+)/);
             hostname = match ? match[1] : '';
           }
         } catch (e) {
           console.log('Error getting hostname:', e);
-          // Last resort: try to get it from the URL string
+          // Last resort: try to get it from any available URL
           try {
-            const url = window.location.href || document.URL || '';
+            const url = location.href || window.location.href || document.URL || '';
             const match = url.match(/https?:\/\/([^\/]+)/);
             hostname = match ? match[1] : '';
           } catch (e2) {
