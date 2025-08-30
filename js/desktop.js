@@ -1350,10 +1350,12 @@ class DesktopApp {
         
         console.log('Debug - hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel);
         
-        // Use public endpoint for GitHub Pages (better CORS handling)
+        // Use appropriate endpoint based on environment
         const apiUrl = isGitHubPages 
-          ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/public-analyze'  // Public CORS endpoint
-          : '/api/analyze-resistor';  // Local API for Vercel deployment
+          ? 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/public-analyze'  // Public CORS endpoint for GitHub Pages
+          : isVercel || hostname.includes('vercel.app')
+            ? '/api/analyze-resistor'  // Use relative path on Vercel
+            : 'https://os-git-new-features-yu-zhangs-projects-dca1c9c8.vercel.app/api/analyze-resistor';  // Fallback to full URL
         
         console.log('Hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel, 'API URL:', apiUrl);
 
