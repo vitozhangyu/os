@@ -1,7 +1,7 @@
 // Public resistor analysis endpoint with CORS
 const multiparty = require('multiparty');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Set comprehensive CORS headers for GitHub Pages
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -69,24 +69,18 @@ async function analyzeResistorWithGemini(base64Image, mimeType) {
 
     const prompt = 'You are an expert electronics engineer. Analyze the provided image of a resistor. Identify the color bands in their correct order, from left to right. Based on the standard 4-band or 5-band resistor color code, determine the significant digits, the multiplier, and the tolerance. Calculate the final resistance value and express it with appropriate units (e.g., Ω, kΩ, MΩ). Also, state the tolerance percentage. Provide a step-by-step explanation of your calculation. If you cannot clearly identify the bands or if the component is not a resistor, please state that in the error field. Respond ONLY with a JSON object that matches the provided schema.';
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
-      contents: [
-        {
-          parts: [
-            { text: prompt },
-            { 
-              inlineData: { 
-                mimeType: mimeType, 
-                data: base64Image 
-              } 
-            }
-          ]
-        }
-      ]
-    });
+    const model = ai.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const response = await model.generateContent([
+      prompt,
+      { 
+        inlineData: { 
+          mimeType: mimeType, 
+          data: base64Image 
+        } 
+      }
+    ]);
     
-    return response.text;
+    return response.response.text();
 
   } catch (error) {
     console.error('Google Gemini API Error:', error);

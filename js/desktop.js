@@ -1323,14 +1323,32 @@ class DesktopApp {
         let isVercel = false;
         
         try {
-          hostname = window.location.hostname || document.location?.hostname || '';
+          hostname = window.location.hostname || '';
+          if (!hostname && document.location) {
+            hostname = document.location.hostname || '';
+          }
+          if (!hostname) {
+            // Fallback: extract hostname from URL
+            const url = window.location.href || document.URL || '';
+            const match = url.match(/https?:\/\/([^\/]+)/);
+            hostname = match ? match[1] : '';
+          }
         } catch (e) {
           console.log('Error getting hostname:', e);
-          hostname = '';
+          // Last resort: try to get it from the URL string
+          try {
+            const url = window.location.href || document.URL || '';
+            const match = url.match(/https?:\/\/([^\/]+)/);
+            hostname = match ? match[1] : '';
+          } catch (e2) {
+            hostname = '';
+          }
         }
         
         isGitHubPages = hostname.includes('github.io');
         isVercel = hostname.includes('vercel.app');
+        
+        console.log('Debug - hostname:', hostname, 'isGitHubPages:', isGitHubPages, 'isVercel:', isVercel);
         
         // Use public endpoint for GitHub Pages (better CORS handling)
         const apiUrl = isGitHubPages 
