@@ -67,7 +67,7 @@ async function analyzeResistorWithGemini(base64Image, mimeType) {
       apiKey: process.env.GOOGLE_API_KEY
     });
 
-    const prompt = 'You are an expert electronics engineer. Analyze the provided image of a resistor. Identify the color bands in their correct order, from left to right. Based on the standard 4-band or 5-band resistor color code, determine the significant digits, the multiplier, and the tolerance. Calculate the final resistance value and express it with appropriate units (e.g., Ω, kΩ, MΩ). Also, state the tolerance percentage. Provide a step-by-step explanation of your calculation. If you cannot clearly identify the bands or if the component is not a resistor, please state that in the error field. Respond ONLY with a JSON object that matches the provided schema.';
+    const prompt = 'You are an expert electronics engineer. Analyze the provided image of a resistor. Identify the color bands in their correct order, from left to right. Based on the standard 4-band or 5-band resistor color code, determine the significant digits, the multiplier, and the tolerance. Calculate the final resistance value and express it with appropriate units (e.g., Ω, kΩ, MΩ). Also, state the tolerance percentage. Provide a clear, concise explanation in natural language. Start with the resistance value, then explain the color bands and calculation. If you cannot clearly identify the bands or if the component is not a resistor, please explain what you see instead.';
 
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',

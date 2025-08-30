@@ -1400,35 +1400,42 @@ class DesktopApp {
         
         let analysisText = result.analysis || 'No analysis available';
         
-        // Try to parse JSON response if Gemini returns JSON
+        // Clean up the response - remove code blocks and format nicely
         console.log('Raw analysis text:', analysisText);
         
-        try {
-          // Try to extract JSON from the response
-          const jsonMatch = analysisText.match(/\{[\s\S]*?\}/);
-          if (jsonMatch) {
-            console.log('Found JSON:', jsonMatch[0]);
-            const parsedAnalysis = JSON.parse(jsonMatch[0]);
+        // Remove markdown code block markers
+        analysisText = analysisText.replace(/```json|```/g, '').trim();
+        
+        // If the response still looks like JSON, try to parse it and convert to readable text
+        if (analysisText.startsWith('{') && analysisText.endsWith('}')) {
+          try {
+            const parsedAnalysis = JSON.parse(analysisText);
             console.log('Parsed JSON:', parsedAnalysis);
             
-            if (parsedAnalysis.resistance || parsedAnalysis.value) {
-              const resistance = parsedAnalysis.resistance || parsedAnalysis.value || 'Unknown';
-              const tolerance = parsedAnalysis.tolerance || 'Unknown';
-              const colors = parsedAnalysis.colors || parsedAnalysis.color_bands || '';
+            // Convert JSON to readable text format
+            if (parsedAnalysis.resistance_value && parsedAnalysis.band_details) {
+              const resistance = `${parsedAnalysis.resistance_value.value} ${parsedAnalysis.resistance_value.unit}`;
+              const tolerance = `±${parsedAnalysis.resistance_value.tolerance_percentage}%`;
+              const bands = parsedAnalysis.band_details.bands_identified?.join(', ') || 'Unknown';
               
-              analysisText = `Resistance: ${resistance}
-Tolerance: ${tolerance}${colors ? '\nColor Bands: ' + colors : ''}`;
+              analysisText = `🔍 Resistor Analysis Result:
+
+💡 Resistance Value: ${resistance} (${tolerance} tolerance)
+
+🌈 Color Bands: ${bands}
+
+📝 How it was calculated:
+${parsedAnalysis.calculation_steps?.join('\n') || 'Calculation steps not provided'}`;
             } else if (parsedAnalysis.error) {
-              analysisText = parsedAnalysis.error;
+              analysisText = `❌ Error: ${parsedAnalysis.error}`;
+            } else {
+              // Fallback to a more readable format
+              analysisText = JSON.stringify(parsedAnalysis, null, 2);
             }
-          } else {
-            // If no JSON found, clean up the response
-            analysisText = analysisText.replace(/```json|```/g, '').trim();
+          } catch (e) {
+            console.log('JSON parsing failed, displaying as-is:', e);
+            // If JSON parsing fails, just display the text as-is after basic cleanup
           }
-        } catch (e) {
-          console.log('JSON parsing error:', e);
-          // Clean up common JSON artifacts from the text
-          analysisText = analysisText.replace(/```json|```|\{|\}/g, '').trim();
         }
         
         resultText.textContent = analysisText;
